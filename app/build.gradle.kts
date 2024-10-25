@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "com.stu71954.roomdbassignment3"
+    namespace = "com.stu71954.jobroomdb_71954"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.stu71954.roomdbassignment3"
+        applicationId = "com.stu71954.jobroomdb_71954"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
