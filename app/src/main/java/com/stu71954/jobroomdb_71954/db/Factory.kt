@@ -1,6 +1,6 @@
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.stu71954.jobroomdb_71954.JobViewModel
+import com.stu71954.jobroomdb_71954.viewmodel.JobViewModel
 import com.stu71954.jobroomdb_71954.db.Repository
 
 class Factory(private val repository: Repository) : ViewModelProvider.Factory {

@@ -1,7 +1,8 @@
-package com.stu71954.jobroomdb_71954
+package com.stu71954.jobroomdb_71954.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.stu71954.jobroomdb_71954.JobData
 import com.stu71954.jobroomdb_71954.db.Repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch

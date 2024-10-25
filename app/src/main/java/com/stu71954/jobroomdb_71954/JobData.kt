@@ -6,7 +6,8 @@ import java.util.Date
 
 @Entity(tableName = "jobs")
 data class JobData(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val customerName: String,
     val location: String,
     val jobType: String,
