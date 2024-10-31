@@ -5,7 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.stu71954.jobroomdb_71954.JobData
+import com.stu71954.jobroomdb_71954.data.JobData
 import kotlinx.coroutines.flow.Flow
 
 @Dao

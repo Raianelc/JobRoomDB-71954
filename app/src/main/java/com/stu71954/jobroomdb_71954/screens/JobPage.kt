@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.stu71954.jobroomdb_71954.JobData
+import com.stu71954.jobroomdb_71954.data.JobData
 import com.stu71954.jobroomdb_71954.viewmodel.JobViewModel
 import java.util.*
 

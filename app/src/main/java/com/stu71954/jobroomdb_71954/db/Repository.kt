@@ -1,6 +1,6 @@
 package com.stu71954.jobroomdb_71954.db
 
-import com.stu71954.jobroomdb_71954.JobData
+import com.stu71954.jobroomdb_71954.data.JobData
 import kotlinx.coroutines.flow.Flow
 
 class Repository(private val jobDao: JobDao) {

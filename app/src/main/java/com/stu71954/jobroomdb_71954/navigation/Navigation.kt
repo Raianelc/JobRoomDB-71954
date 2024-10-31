@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.stu71954.jobroomdb_71954.decoratorscreens.DecoratorDetails
 import com.stu71954.jobroomdb_71954.decoratorscreens.SearchScreen
-import com.stu71954.jobroomdb_71954.mockDecorators
+import com.stu71954.jobroomdb_71954.data.mockDecorators
 
 @Composable
 fun AppNavigation() {

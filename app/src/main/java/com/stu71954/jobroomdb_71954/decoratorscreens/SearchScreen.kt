@@ -1,6 +1,5 @@
 package com.stu71954.jobroomdb_71954.decoratorscreens
 
-import android.app.DatePickerDialog
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,12 +13,14 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.stu71954.jobroomdb_71954.Decorator
-import com.stu71954.jobroomdb_71954.mockDecorators
+import com.stu71954.jobroomdb_71954.data.Decorator
+import com.stu71954.jobroomdb_71954.data.mockDecorators
+import com.stu71954.jobroomdb_71954.formatDate
 import com.stu71954.jobroomdb_71954.screens.CustomTextField
-import java.text.SimpleDateFormat
+import com.stu71954.jobroomdb_71954.showDatePicker
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -60,16 +61,16 @@ fun SearchScreen(navController: NavHostController) {
                 )
 
                 Button(onClick = {
-                    if (location.isNotBlank()) {
-                        availableDecorators = mockDecorators.filter {
+                    availableDecorators = if (location.isNotBlank()) {
+                        mockDecorators.filter {
                             it.location.contains(location, ignoreCase = true) &&
                                     !it.availableFrom.before(dateFrom.time) && // Ensure availableFrom is on or after dateFrom
                                     !it.availableTo.after(dateTo.time) // Ensure availableTo is on or before dateTo
                         }
                     } else {
                         // Handle validation error
-                        // For simplicity, we just clear the list if validation fails
-                        availableDecorators = emptyList()
+                        // For simplicity, just clear the list if validation fails
+                        emptyList()
                     }
                 }) {
                     Text("Search")
@@ -91,7 +92,7 @@ fun SearchScreen(navController: NavHostController) {
 @Composable
 fun DateInputField(label: String, date: Calendar, onDateSelected: (Calendar) -> Unit, context: Context) {
     TextField(
-        value = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date.time),
+        value = formatDate(date.time),
         onValueChange = { },
         label = { Text(label) },
         readOnly = true, // Make it read-only to prevent typing
@@ -106,22 +107,6 @@ fun DateInputField(label: String, date: Calendar, onDateSelected: (Calendar) -> 
             }
         }
     )
-}
-
-private fun showDatePicker(context: Context, calendar: Calendar, onDateSelected: (Calendar) -> Unit) {
-    val datePickerDialog = DatePickerDialog(
-        context,
-        { _, year, month, dayOfMonth ->
-            val selectedDate = Calendar.getInstance()
-            selectedDate.set(year, month, dayOfMonth)
-            onDateSelected(selectedDate)
-        },
-        calendar.get(Calendar.YEAR),
-        calendar.get(Calendar.MONTH),
-        calendar.get(Calendar.DAY_OF_MONTH)
-    )
-    datePickerDialog.datePicker.minDate = System.currentTimeMillis() // Block dates before today
-    datePickerDialog.show()
 }
 
 @Composable
@@ -139,33 +124,31 @@ fun DecoratorItem(decorator: Decorator, navController: NavHostController) {
                 .background(MaterialTheme.colorScheme.surface)
                 .padding(16.dp)
         ) {
-            Text(
-                text = decorator.name,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            Text(
-                text = "Location: ${decorator.location}",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            Text(
-                text = "Available From: ${SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(decorator.availableFrom)}",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            Text(
-                text = "Available To: ${SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(decorator.availableTo)}",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface
-            )
+            DecoratorText(text = decorator.name, style = MaterialTheme.typography.bodyMedium)
+            DecoratorText(text = "Location: ${decorator.location}", style = MaterialTheme.typography.bodySmall)
+            DecoratorText(text = "Available From: ${formatDate(decorator.availableFrom)}", style = MaterialTheme.typography.bodySmall)
+            DecoratorText(text = "Available To: ${formatDate(decorator.availableTo)}", style = MaterialTheme.typography.bodySmall)
             Spacer(modifier = Modifier.height(8.dp))
-            Button(
-                onClick = { navController.navigate("details/${decorator.id}") },
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
-            ) {
-                Text("See More Details", color = MaterialTheme.colorScheme.onPrimary)
-            }
+            SeeMoreButton(navController, decorator.id)
         }
+    }
+}
+
+@Composable
+fun DecoratorText(text: String, style: TextStyle) {
+    Text(
+        text = text,
+        style = style,
+        color = MaterialTheme.colorScheme.onSurface
+    )
+}
+
+@Composable
+fun SeeMoreButton(navController: NavHostController, decoratorId: Int) {
+    Button(
+        onClick = { navController.navigate("details/$decoratorId") },
+        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+    ) {
+        Text("See More Details", color = MaterialTheme.colorScheme.onPrimary)
     }
 }

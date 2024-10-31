@@ -1,4 +1,4 @@
-package com.stu71954.jobroomdb_71954
+package com.stu71954.jobroomdb_71954.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

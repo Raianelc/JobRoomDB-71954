@@ -1,4 +1,4 @@
-package com.stu71954.jobroomdb_71954
+package com.stu71954.jobroomdb_71954.data
 
 import java.util.Calendar
 import java.util.Date
