@@ -19,7 +19,6 @@ import androidx.navigation.NavHostController
 import com.stu71954.jobroomdb_71954.data.Decorator
 import com.stu71954.jobroomdb_71954.data.mockDecorators
 import com.stu71954.jobroomdb_71954.formatDate
-import com.stu71954.jobroomdb_71954.screens.CustomTextField
 import com.stu71954.jobroomdb_71954.showDatePicker
 import java.util.*
 
@@ -27,7 +26,8 @@ import java.util.*
 @Composable
 fun SearchScreen(navController: NavHostController) {
     // State management using remember
-    var location by remember { mutableStateOf("") }
+    var location by remember { mutableStateOf("")}
+    var locationError by remember { mutableStateOf(false) }
     // State management using rememberSaveable
     var dateFrom by rememberSaveable { mutableStateOf(Calendar.getInstance()) }
     var dateTo by rememberSaveable { mutableStateOf(Calendar.getInstance()) }
@@ -42,7 +42,18 @@ fun SearchScreen(navController: NavHostController) {
         },
         content = { paddingValues ->
             Column(modifier = Modifier.padding(paddingValues).padding(16.dp)) {
-                CustomTextField(value = location, onValueChange = { location = it }, label = "Location")
+                CustomTextField(
+                    value = location,
+                    onValueChange = {
+                        location = it
+                        locationError = location.isBlank()
+                    },
+                    label = "Location",
+                    isError = locationError
+                )
+                if (locationError) {
+                    Text("Location cannot be empty", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
+                }
 
                 // TextField for Date From
                 DateInputField(
@@ -61,8 +72,9 @@ fun SearchScreen(navController: NavHostController) {
                 )
 
                 Button(onClick = {
-                    availableDecorators = if (location.isNotBlank()) {
-                        mockDecorators.filter {
+                    locationError = location.isBlank()
+                    if (!locationError) {
+                        availableDecorators = mockDecorators.filter {
                             it.location.contains(location, ignoreCase = true) &&
                                     !it.availableFrom.before(dateFrom.time) && // Ensure availableFrom is on or after dateFrom
                                     !it.availableTo.after(dateTo.time) // Ensure availableTo is on or before dateTo
@@ -70,7 +82,7 @@ fun SearchScreen(navController: NavHostController) {
                     } else {
                         // Handle validation error
                         // For simplicity, just clear the list if validation fails
-                        emptyList()
+                        availableDecorators = emptyList()
                     }
                 }) {
                     Text("Search")
@@ -86,6 +98,22 @@ fun SearchScreen(navController: NavHostController) {
                 }
             }
         }
+    )
+}
+
+@Composable
+fun CustomTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: String,
+    isError: Boolean
+) {
+    TextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(label) },
+        isError = isError,
+        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
     )
 }
 
