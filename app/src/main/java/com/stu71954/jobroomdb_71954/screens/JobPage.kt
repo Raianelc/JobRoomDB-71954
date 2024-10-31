@@ -1,4 +1,4 @@
-package com.stu71954.jobroomdb_71954
+package com.stu71954.jobroomdb_71954.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.stu71954.jobroomdb_71954.JobData
 import com.stu71954.jobroomdb_71954.viewmodel.JobViewModel
 import java.util.*
 
@@ -94,7 +95,8 @@ fun InputForm(onAddJob: (JobData) -> Unit) {
 }
 
 @Composable
-fun CustomTextField(value: String, onValueChange: (String) -> Unit, label: String) {
+fun CustomTextField(value: String, onValueChange: (String) -> Unit, label: String
+                    ) {
     TextField(
         value = value,
         onValueChange = onValueChange,

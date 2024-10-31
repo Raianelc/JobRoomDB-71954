@@ -14,3 +14,4 @@ data class JobData(
     val dateFrom: Date,
     val dateTo: Date
 )
+
