@@ -11,6 +11,7 @@ interface InventoryDao {
     @Insert
     suspend fun insertInventory(inventory: Inventory)
 
+    // Query to get the total inventory value by summing the product of quantity and cost per unit
     @Query("SELECT SUM(quantity * cost_per_unit) FROM Inventory")
     fun getTotalInventoryValue(): Double
 }

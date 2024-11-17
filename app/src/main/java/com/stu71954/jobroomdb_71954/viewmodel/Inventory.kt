@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+//Define the Inventory entity for the Room database
 @Entity(tableName = "inventory")
 data class Inventory(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
@@ -12,3 +13,4 @@ data class Inventory(
     @ColumnInfo(name = "supplier", defaultValue = "Co-op Store") val supplier: String = "Co-op Store",
     @ColumnInfo(name = "cost_per_unit") val costPerUnit: Double
 )
+
