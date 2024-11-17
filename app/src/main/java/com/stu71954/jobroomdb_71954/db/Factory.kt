@@ -1,7 +1,7 @@
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.stu71954.jobroomdb_71954.viewmodel.JobViewModel
-import com.stu71954.jobroomdb_71954.db.Repository
+import com.stu71954.jobroomdb_71954.dbinventory.Repository
 
 class Factory(private val repository: Repository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

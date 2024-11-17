@@ -3,7 +3,7 @@ package com.stu71954.jobroomdb_71954.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stu71954.jobroomdb_71954.data.JobData
-import com.stu71954.jobroomdb_71954.db.Repository
+import com.stu71954.jobroomdb_71954.dbinventory.Repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 

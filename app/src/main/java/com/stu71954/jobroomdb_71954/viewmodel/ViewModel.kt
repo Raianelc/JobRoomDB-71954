@@ -6,7 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.stu71954.jobroomdb_71954.db.JobDatabase
-import com.stu71954.jobroomdb_71954.db.Repository
+import com.stu71954.jobroomdb_71954.dbinventory.Repository
 
 fun initializeViewModel(context: Context): JobViewModel {
     val database = Room.databaseBuilder(
